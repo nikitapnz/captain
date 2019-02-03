@@ -14,8 +14,8 @@ public class CaptainApplication {
 		SpringApplication.run(CaptainApplication.class, args);
 	}
 
-	@Bean(name = "uniqueObjectForTeam")
-	public Map<Long, Object> uniqueObjectForTeam() {
+	@Bean(name = "uniqueObjectForParticipant")
+	public Map<Long, Object> uniqueObjectForParticipant() {
 		return new ConcurrentHashMap<>();
 	}
 }

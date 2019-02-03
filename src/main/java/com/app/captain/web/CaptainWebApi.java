@@ -17,7 +17,7 @@ public class CaptainWebApi {
     CaptainService captainService;
 
     @Autowired
-    Map<Long, Object> uniqueObjectForTeam;
+    Map<Long, Object> uniqueObjectForParticipant;
 
     @RequestMapping(path = "captain/{teamId}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity getCaptainInfoByTeamId(@PathVariable("teamId") Long teamId) {
@@ -32,9 +32,9 @@ public class CaptainWebApi {
 
     @RequestMapping(path = "captain", method = RequestMethod.POST)
     public ResponseEntity saveNewCaptain(@RequestBody Captain captain) {
-        uniqueObjectForTeam.putIfAbsent(captain.getTeamId(), new Object());
+        uniqueObjectForParticipant.putIfAbsent(captain.getParticipantId(), new Object());
 
-        synchronized (uniqueObjectForTeam.get(captain.getTeamId())) {
+        synchronized (uniqueObjectForParticipant.get(captain.getParticipantId())) {
             ParticipantInfoDTO participantInfoDTO = captainService.findCaptainByTeamId(captain.getTeamId());
             if (participantInfoDTO != null) {
                 return new ResponseEntity(Collections.singletonMap("success", false), HttpStatus.CONFLICT);
